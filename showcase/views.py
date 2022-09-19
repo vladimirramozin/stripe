@@ -1,0 +1,61 @@
+import os
+
+import stripe
+from django.conf import settings
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+from dotenv import load_dotenv
+
+from showcase.models import Item
+
+load_dotenv('.env')
+stripe.api_key = os.environ.get('STRIPE_PRIVATE_KEY')
+
+YOUR_DOMAIN = 'http://127.0.0.1:8000'
+
+def item(request, pk):
+    pk=int(pk)-1
+    item = Item.objects.all()[pk].name
+    description = Item.objects.all()[pk].description
+    price = Item.objects.all()[pk].price
+    context = { 
+        'item': item,
+        'description': description,
+        'price': price,
+        'id': str(pk)
+    }
+    return render(request, 'checkout.html', context) 
+
+@csrf_exempt
+def create_checkout_session(request, pk):
+   
+    item = Item.objects.all()[pk].name
+    price = Item.objects.all()[pk].price * 100    
+    session = stripe.checkout.Session.create(
+    payment_method_types=['card'],
+    line_items=[{
+      'price_data': {
+        'currency': 'USD',
+        'product_data': {
+          'name': item,
+        },
+        'unit_amount': price,
+      },
+      'quantity': 1,
+    }],
+    mode='payment',
+    success_url=YOUR_DOMAIN + '/success.html',
+    cancel_url=YOUR_DOMAIN + '/cancel.html',
+    )
+    return JsonResponse({'id': session.id})
+
+
+
+#success view
+def success(request):
+    return render(request,'success.html')
+    
+#cancel view
+def cancel(request):
+    return render(request,'cancel.html')
