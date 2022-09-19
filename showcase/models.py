@@ -1,6 +1,8 @@
 from decimal import MIN_EMIN
 from django.db import models
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 class Item(models.Model):
     name = models.CharField(max_length=100, verbose_name = 'название товара')
@@ -9,3 +11,13 @@ class Item(models.Model):
     class Meta:
         verbose_name = 'товар'
         verbose_name_plural = 'товары'
+
+class Order(models.Model):
+    items = models.ManyToManyField(Item)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='recipe',
+        blank=True,
+        null=True
+    )
