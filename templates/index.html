@@ -1,8 +1,7 @@
+<ul>
 {% for item in objs %}
-<tr> 
-     <td>{{ item.field1 }}</td>
-     <td>{{ item.field2 }}</td>
-     <td>{{ item.field3 }}</td>
-     <td>{{ item.field4 }}</td>
-</tr>
+<li>
+<a href="http://127.0.0.1/item/{{item.id}}">{{item.name}} </a> <br>
+</li>
    {% endfor %}
+</ul>

@@ -1,17 +1,17 @@
 import os
-
+import pdb
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from dotenv import load_dotenv
-
+from functools import reduce
 import stripe
-from showcase.models import Item
+from showcase.models import Item, Order
 
 load_dotenv('.env')
 stripe.api_key = os.environ.get('STRIPE_PRIVATE_KEY')
 
-DOMAIN = 'http://127.0.0.1:8000'
+DOMAIN = os.environ.get('DOMAIN')
 
 
 def item(request, pk):
@@ -26,7 +26,6 @@ def item(request, pk):
         'id': str(pk)
     }
     return render(request, 'checkout.html', context)
-
 
 @csrf_exempt
 def create_checkout_session(request, pk):
@@ -60,4 +59,4 @@ def cancel(request):
 
 def view_info(request):
     objs=Item.objects.all()
-    return render(request,'index',{'objs':obj})
+    return render(request,'index.html',{'objs':objs})

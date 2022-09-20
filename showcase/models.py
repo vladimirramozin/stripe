@@ -13,13 +13,3 @@ class Item(models.Model):
         verbose_name = 'товар'
         verbose_name_plural = 'товары'
 
-
-class Order(models.Model):
-    items = models.ManyToManyField(Item)
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name='recipe',
-        blank=True,
-        null=True
-    )
