@@ -1,8 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin, register
-from showcase.models import Item, Order
+from showcase.models import Item
 
-admin.site.register(Order)
 
 @register(Item)
 class ItemAdmin(ModelAdmin):

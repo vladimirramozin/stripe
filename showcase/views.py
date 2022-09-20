@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from dotenv import load_dotenv
 from functools import reduce
 import stripe
-from showcase.models import Item, Order
+from showcase.models import Item
 
 load_dotenv('.env')
 stripe.api_key = os.environ.get('STRIPE_PRIVATE_KEY')
