@@ -37,7 +37,7 @@ DB_HOST=
 DB_PORT=5432
 DOMAIN=http://127.0.0.1:8000
 ```
-Перейти в папку stripe собрать и запустить докер образ:
+Перейти в папку stripe собрать и запустить докер образы в фоновом режиме:
 ```
 sudo docker-compose up -d --build
 ```
@@ -48,7 +48,6 @@ sudo docker-compose exec web python manage.py migrate
 sudo docker-compose exec web python manage.py createsuperuser
 sudo docker-compose exec web python manage.py collectstatic --no-input 
 ```
-
 
 ## Системные требования:
 asgiref==3.5.2
