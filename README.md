@@ -35,7 +35,7 @@ POSTGRES_USER=
 POSTGRES_PASSWORD=
 DB_HOST=
 DB_PORT=5432
-DOMAIN=http://127.0.0.1:8000
+DOMAIN=http://127.0.0.1
 ```
 Перейти в папку stripe собрать и запустить докер образы в фоновом режиме:
 ```
