@@ -1,10 +1,10 @@
 import os
-import pdb
+
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from dotenv import load_dotenv
-from functools import reduce
+
 import stripe
 from showcase.models import Item
 
@@ -26,6 +26,7 @@ def item(request, pk):
         'id': str(pk)
     }
     return render(request, 'checkout.html', context)
+
 
 @csrf_exempt
 def create_checkout_session(request, pk):
@@ -57,6 +58,7 @@ def success(request):
 def cancel(request):
     return render(request, 'cancel.html')
 
+
 def view_info(request):
-    objs=Item.objects.all()
-    return render(request,'index.html',{'objs':objs})
+    objs = Item.objects.all()
+    return render(request, 'index.html', {'objs': objs})
